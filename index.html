@@ -42,13 +42,23 @@
 
     <script>
         function okButtonClicked() {
-            var ebay_link = "https://www.ebay.com/itm/"
-            var ebay_affiliate_info = "?affiliate.trackingId=123456789&affiliate.trackingId=1234567890&customid=dlh"
+            const ebay_link = "https://www.ebay.com/itm/"
+            const ebay_affiliate_id = "1234567890"
+            const ebay_network_id = "9"
+            const ebay_custom_id = ""
+            if (ebay_custom_id.length > 0) {
+            	var ebay_affiliate_info = "?affiliate.trackingId=" + ebay_affiliate_id + "&affiliate.networkId=" + ebay_network_id + "&affiliate.customId=" + ebay_custom_id;
+            } else {
+            	var ebay_affiliate_info = "?affiliate.trackingId=" + ebay_affiliate_id + "&affiliate.networkId=" + ebay_network_id;
+			}
             var ebay_item_number = document.getElementById("ebay_item_number").value;
             
             if (!isNumber(ebay_item_number)) {
                 alert("eBay item number must be a number. Please enter a valid number.");
                 return;
+            } else if (ebay_item_number.length != 12){
+            	alert("eBay item number must be twelve digits. Please enter a valid number.");
+            	return;
             }
             var ebay_affiliate_link = ebay_link.concat(ebay_item_number, ebay_affiliate_info)
             
@@ -71,4 +81,3 @@
 
 </body>
 </html>
-

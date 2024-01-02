@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create eBay affiliate link to support ICW</title>
+</head>
+<body>
+
+    <h1>Create eBay affiliate link to support ICW</h1>
+    
+    <h2>Disclaimer</h2>
+    <p>This is a demo for now. The link creator is missing crucial affiliation information to really support ICW.</p>
+    <p>Creator: hztirf, Jan 2/2024</p>
+    
+    <h2>Input section</h2>
+
+    <label for="ebay_item_number">eBay item number:</label>
+    <input type="text" id="ebay_item_number" name="ebay_item_number" placeholder="Please enter eBay item number here...">
+
+    <br>
+
+    <button onclick="okButtonClicked()">Create link</button>
+
+    <br>
+
+    <h2>Output section</h2>
+
+    <label for="result_link_field">Result:</label>
+    <input type="text" id="result_link_field" name="result_link_field" placeholder="" readonly>
+    
+    <br>
+    
+    <button onclick="copyToClipboard()">Copy BB code to clipboard</button>
+    
+    <br>
+    
+    <footer>
+        <div id="infoBox">
+        </div>
+    </footer>
+
+    <script>
+        function okButtonClicked() {
+            var ebay_link = "https://www.ebay.com/itm/"
+            var ebay_affiliate_info = "?affiliate.trackingId=123456789&affiliate.trackingId=1234567890&customid=dlh"
+            var ebay_item_number = document.getElementById("ebay_item_number").value;
+            
+            if (!isNumber(ebay_item_number)) {
+                alert("eBay item number must be a number. Please enter a valid number.");
+                return;
+            }
+            var ebay_affiliate_link = ebay_link.concat(ebay_item_number, ebay_affiliate_info)
+            
+            document.getElementById("result_link_field").value = "[url=" + ebay_affiliate_link + "]eBay item " + ebay_item_number + "[/url]";
+        }
+        
+        function isNumber(value) {
+            return !isNaN(parseFloat(value)) && isFinite(value);
+        }
+        
+        function copyToClipboard() {
+            var ebay_affiliate_link = document.getElementById("result_link_field");
+            
+            ebay_affiliate_link.select();
+            document.execCommand("copy");
+            
+            alert("BB code copied to clipboard!");
+        }
+    </script>
+
+</body>
+</html>
+

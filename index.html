@@ -17,23 +17,28 @@
 
     <label for="ebay_item_number">eBay item number:</label>
     <input type="text" id="ebay_item_number" name="ebay_item_number" placeholder="Please enter eBay item number here...">
+    <br/>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;- OR -</p>
 
-    <br>
+    <label for="ebay_input_link">eBay auction link:</label>
+    <input type="text" id="ebay_input_link" name="ebay_input_link" placeholder="Paste the link to eBay here...">
+
+    <br/><br/>
 
     <button onclick="okButtonClicked()">Create link</button>
 
-    <br>
+    <br/><br/>
 
     <h2>Output section</h2>
 
     <label for="result_link_field">Result:</label>
     <input type="text" id="result_link_field" name="result_link_field" placeholder="" readonly>
     
-    <br>
+    <br/><br/>
     
     <button onclick="copyToClipboard()">Copy BB code to clipboard</button>
     
-    <br>
+    <br/>
     
     <footer>
         <div id="infoBox">
@@ -51,13 +56,21 @@
             } else {
             	var ebay_affiliate_info = "?affiliate.trackingId=" + ebay_affiliate_id + "&affiliate.networkId=" + ebay_network_id;
 			}
-            var ebay_item_number = document.getElementById("ebay_item_number").value;
+			
+			var ebay_input_link = document.getElementById("ebay_input_link").value;
+			
+			if (ebay_input_link.length > 0 && ebay_input_link.includes("/itm/")) {
+				let item_index = ebay_input_link.indexOf("/itm/") + 5;
+				var ebay_item_number = ebay_input_link.substring(item_index, item_index + 12);
+			} else {
+				var ebay_item_number = document.getElementById("ebay_item_number").value;
+            }
             
             if (!isNumber(ebay_item_number)) {
-                alert("eBay item number must be a number. Please enter a valid number.");
+                alert("eBay item number must be a number. Please enter a valid number or link.");
                 return;
             } else if (ebay_item_number.length != 12){
-            	alert("eBay item number must be twelve digits. Please enter a valid number.");
+            	alert("eBay item number must be twelve digits. Please enter a valid item number.");
             	return;
             }
             var ebay_affiliate_link = ebay_link.concat(ebay_item_number, ebay_affiliate_info)
